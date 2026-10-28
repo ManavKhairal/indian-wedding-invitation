@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="hi" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>॥ शुभ विवाह ॥ रुद्र संग शांति | Royal Wedding Invitation</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Rozha One, Yatra One, Tiro Devanagari Hindi, Cinzel Decorative -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Rozha+One&family=Tiro+Devanagari+Hindi:ital@0;1&family=Yatra+One&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- GSAP & ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Tone.js for Traditional Synthesized Shehnai/Sitar Audio (No external MP3 required) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        maroon: {
+                            950: '#2A0205',
+                            900: '#4A0404',
+                            800: '#63080B',
+                            700: '#7C0D12',
+                        },
+                        gold: {
+                            100: '#FFF9E6',
+                            200: '#FCE8A6',
+                            300: '#F5D061',
+                            400: '#E5B83B',
+                            500: '#D4AF37',
+                            600: '#AA820A',
+                        },
+                        marigold: {
+                            400: '#FFA726',
+                            500: '#FF8F00',
+                            600: '#E65100',
+                        }
+                    },
+                    fontFamily: {
+                        rozha: ['"Rozha One"', 'serif'],
+                        yatra: ['"Yatra One"', 'cursive'],
+                        tiro: ['"Tiro Devanagari Hindi"', 'serif'],
+                        cinzel: ['"Cinzel Decorative"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ==========================================
+           CUSTOM ROYAL STYLING & MANDALA PATTERNS
+           ========================================== */
+        :root {
+            --gold-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
+            --maroon-radial: radial-gradient(circle at center, #63080B 0%, #380204 70%, #1E0001 100%);
+        }
+
+        body {
+            background: var(--maroon-radial);
+            color: #FFF9E6;
+            font-family: 'Tiro Devanagari Hindi', serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Seamless SVG Mandala Pattern Overlay */
+        .mandala-bg {
+            background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23D4AF37' stroke-width='0.7' stroke-opacity='0.12'%3E%3Ccircle cx='60' cy='60' r='50'/%3E%3Ccircle cx='60' cy='60' r='40' stroke-dasharray='4 4'/%3E%3Ccircle cx='60' cy='60' r='28'/%3E%3Ccircle cx='60' cy='60' r='12'/%3E%3Cpath d='M60 10 C70 35 70 85 60 110 C50 85 50 35 60 10 Z'/%3E%3Cpath d='M10 60 C35 70 85 70 110 60 C85 50 35 50 10 60 Z'/%3E%3Cpath d='M25 25 C45 40 75 80 95 95 C80 75 40 45 25 25 Z'/%3E%3Cpath d='M95 25 C75 40 45 80 25 95 C40 75 80 45 95 25 Z'/%3E%3C/g%3E%3C/svg%3E");
+            background-attachment: fixed;
+        }
+
+        /* Metallic Gold Text Effect */
+        .gold-text {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        /* Metallic Gold Borders & Cards */
+        .royal-card {
+            background: linear-gradient(145deg, rgba(74, 4, 4, 0.9), rgba(42, 2, 5, 0.95));
+            border: 1.5px solid rgba(212, 175, 55, 0.45);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.12);
+            position: relative;
+        }
+
+        .royal-card::before {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border: 1px dashed rgba(212, 175, 55, 0.25);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        /* Ornate Arch Frame for Couple Illustration */
+        .mughal-arch {
+            border-radius: 160px 160px 20px 20px;
+            border: 3px solid #D4AF37;
+            box-shadow: 0 0 30px rgba(255, 143, 0, 0.25), inset 0 0 25px rgba(212, 175, 55, 0.3);
+        }
+
+        /* 3D Door Opening Perspective */
+        .door-perspective {
+            perspective: 1800px;
+        }
+        .door-panel-left {
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            background: linear-gradient(135deg, #4A0404 0%, #2A0205 100%);
+            box-shadow: inset -10px 0 30px rgba(0,0,0,0.8);
+        }
+        .door-panel-right {
+            transform-origin: right center;
+            transform-style: preserve-3d;
+            background: linear-gradient(225deg, #4A0404 0%, #2A0205 100%);
+            box-shadow: inset 10px 0 30px rgba(0,0,0,0.8);
+        }
+
+        /* Marigold Toran Drop Shadow */
+        .toran-shadow {
+            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.65));
+        }
+
+        /* Spinning Background Mandala */
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spin-slow {
+            animation: spinSlow 55s linear infinite;
+        }
+
+        /* Pulse Glow for Wax Seal */
+        @keyframes pulseGold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7), 0 0 25px rgba(255, 143, 0, 0.6); transform: scale(1); }
+            50% { box-shadow: 0 0 0 18px rgba(212, 175, 55, 0), 0 0 40px rgba(255, 143, 0, 0.9); transform: scale(1.04); }
+        }
+        .seal-pulse {
+            animation: pulseGold 2.4s infinite;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2A0205;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="mandala-bg selection:bg-marigold-500 selection:text-white">
+
+    <!-- =======================================================
+          EDITABLE CONFIGURATION PLACEHOLDERS (EASY CUSTOMIZATION)
+         ======================================================= -->
+    <script>
+        const WEDDING_CONFIG = {
+            // [INSERT_DATE_HERE] - Easily edit the wedding year or date below
+            weddingDay: "8",
+            weddingMonth: "June",
+            weddingYear: "2026", // <-- Edit Year Here
+            receptionDate: "10 June 2026",
+            // [COUPLE_PHOTO_URL] - Leave empty to use built-in Royal Vector Illustration, or paste a photo URL
+            couplePhotoUrl: "", 
+            calendarStartUTC: "20260608T130000Z", // 8 June 6:30 PM IST
+            calendarEndUTC: "20260608T180000Z"
+        };
+    </script>
+
+    <!-- =======================================================
+         1. FALLING FLOWER PETALS CANVAS (MARIGOLD & ROSE)
+         ======================================================= -->
+    <canvas id="petals-canvas" class="fixed inset-0 pointer-events-none z-30 w-full h-full"></canvas>
+
+    <!-- =======================================================
+         2. ROYAL HAVELI DOORS OPENING OVERLAY (GSAP)
+         ======================================================= -->
+    <div id="door-overlay" class="fixed inset-0 z-50 flex door-perspective overflow-hidden select-none">
+        
+        <!-- Left Royal Door -->
+        <div id="door-left" class="door-panel-left w-1/2 h-full border-r-4 border-gold-500 flex flex-col justify-between p-4 sm:p-8 relative">
+            <!-- Intricate Jali Corner -->
+            <div class="border-2 border-gold-500/40 h-full w-full rounded-tl-3xl rounded-bl-3xl p-3 flex flex-col justify-between items-center relative overflow-hidden">
+                <div class="w-20 h-20 sm:w-28 sm:h-28 opacity-30 border-t-2 border-l-2 border-gold-400 absolute top-2 left-2 rounded-tl-2xl"></div>
+                
+                <!-- Top Kalash Motif -->
+                <div class="mt-8 text-gold-400/70 text-center">
+                    <i class="fa-solid fa-om text-2xl sm:text-4xl"></i>
+                    <div class="h-[1px] w-16 bg-gold-500/50 mx-auto mt-2"></div>
+                </div>
+
+                <!-- Center Door Brass Ring -->
+                <div class="my-auto flex flex-col items-end w-full pr-2 sm:pr-6">
+                    <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-4 border-gold-400 bg-maroon-950 shadow-inner"></div>
+                </div>
+
+                <!-- Bottom Lotus Motif -->
+                <div class="mb-8 text-gold-400/60 text-xs tracking-widest uppercase font-cinzel">
+                    ॥ श्री गणेशाय नमः ॥
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Royal Door -->
+        <div id="door-right" class="door-panel-right w-1/2 h-full border-l-4 border-gold-500 flex flex-col justify-between p-4 sm:p-8 relative">
+            <div class="border-2 border-gold-500/40 h-full w-full rounded-tr-3xl rounded-br-3xl p-3 flex flex-col justify-between items-center relative overflow-hidden">
+                <div class="w-20 h-20 sm:w-28 sm:h-28 opacity-30 border-t-2 border-r-2 border-gold-400 absolute top-2 right-2 rounded-tr-2xl"></div>
+                
+                <!-- Top Swastika / Auspicious Symbol -->
+                <div class="mt-8 text-gold-400/70 text-center">
+                    <i class="fa-solid fa-dharmachakra text-2xl sm:text-4xl"></i>
+                    <div class="h-[1px] w-16 bg-gold-500/50 mx-auto mt-2"></div>
+                </div>
+
+                <!-- Center Door Brass Ring -->
+                <div class="my-auto flex flex-col items-start w-full pl-2 sm:pl-6">
+                    <div class="w-10 h-10 sm:w-14 sm:h-14 rounded-full border-4 border-gold-400 bg-maroon-950 shadow-inner"></div>
+                </div>
+
+                <!-- Bottom Motif -->
+                <div class="mb-8 text-gold-400/60 text-xs tracking-widest uppercase font-cinzel">
+                    ॥ शुभ विवाह ॥
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Royal Seal Button -->
+        <div id="door-seal-wrapper" class="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none px-4">
+            <button id="open-invitation-btn" class="pointer-events-auto group relative flex flex-col items-center justify-center w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-b from-maroon-800 via-maroon-900 to-maroon-950 border-4 border-gold-400 seal-pulse cursor-pointer transition-transform active:scale-95">
+                <!-- Inner Gold Ring -->
+                <div class="absolute inset-2 rounded-full border border-dashed border-gold-300/60"></div>
+                
+                <!-- Ganesh SVG Icon -->
+                <svg class="w-12 h-12 sm:w-14 sm:h-14 text-gold-300 mb-1 fill-current" viewBox="0 0 64 64">
+                    <path d="M32 6c-4 0-7 3-7 7 0 2 1 4 2 5-5 2-8 7-8 12 0 4 2 8 6 10-1 3-1 7 2 10 2 2 6 3 9 2 2-1 3-3 2-5-1-1-3-1-4 0-1 1-3 0-4-1-2-2-1-4 0-6 2 1 4 1 6 1 6 0 11-5 11-11 0-5-3-10-8-12 1-1 2-3 2-5 0-4-3-7-7-7zm-9 20c-2 0-4 2-4 5s2 5 4 5v-10zm18 0v10c2 0 4-2 4-5s-2-5-4-5z"/>
+                </svg>
+                
+                <span class="font-rozha text-xl sm:text-2xl gold-text tracking-wider">रुद्र संग शांति</span>
+                <span class="mt-2 px-3 py-1 rounded-full bg-gradient-to-r from-marigold-600 via-marigold-500 to-marigold-600 text-white text-xs sm:text-sm font-medium shadow-md flex items-center gap-1.5">
+                    <i class="fa-solid fa-envelope-open-text"></i> आमंत्रण खोलें
+                </span>
+            </button>
+            <p class="mt-5 text-gold-200/90 text-xs sm:text-sm bg-maroon-950/80 px-4 py-1.5 rounded-full border border-gold-500/30 backdrop-blur-sm">
+                Tap the Royal Seal to Open with Music
+            </p>
+        </div>
+    </div>
+
+    <!-- =======================================================
+         3. TOP HANGING MARIGOLD & MANGO LEAF TORAN
+         ======================================================= -->
+    <div class="fixed top-0 left-0 right-0 z-20 pointer-events-none toran-shadow overflow-hidden">
+        <svg class="w-full h-12 sm:h-16 md:h-20" viewBox="0 0 1200 90" preserveAspectRatio="none">
+            <!-- Mango Leaves Row -->
+            <g fill="#1B5E20" stroke="#D4AF37" stroke-width="1">
+                <path d="M30,0 L45,45 L60,0 Z M90,0 L105,45 L120,0 Z M150,0 L165,45 L180,0 Z M210,0 L225,45 L240,0 Z M270,0 L285,45 L300,0 Z M330,0 L345,45 L360,0 Z M390,0 L405,45 L420,0 Z M450,0 L465,45 L480,0 Z M510,0 L525,45 L540,0 Z M570,0 L585,45 L600,0 Z M630,0 L645,45 L660,0 Z M690,0 L705,45 L720,0 Z M750,0 L765,45 L780,0 Z M810,0 L825,45 L840,0 Z M870,0 L885,45 L900,0 Z M930,0 L945,45 L960,0 Z M990,0 L1005,45 L1020,0 Z M1050,0 L1065,45 L1080,0 Z M1110,0 L1125,45 L1140,0 Z M1170,0 L1185,45 L1200,0 Z"/>
+            </g>
+            <!-- Marigold Swags -->
+            <path d="M0,10 Q100,85 200,10 Q300,85 400,10 Q500,85 600,10 Q700,85 800,10 Q900,85 1000,10 Q1100,85 1200,10" fill="none" stroke="#FF8F00" stroke-width="14" stroke-linecap="round" stroke-dasharray="2 18"/>
+            <path d="M0,5 Q100,70 200,5 Q300,70 400,5 Q500,70 600,5 Q700,70 800,5 Q900,70 1000,5 Q1100,70 1200,5" fill="none" stroke="#FFC107" stroke-width="10" stroke-linecap="round" stroke-dasharray="1 15"/>
+            <!-- Top Gold Border Bar -->
+            <rect x="0" y="0" width="1200" height="8" fill="#D4AF37"/>
+        </svg>
+    </div>
+
+    <!-- =======================================================
+         MAIN INVITATION CONTAINER (MOBILE-FIRST FRAME)
+         ======================================================= -->
+    <main class="relative z-10 max-w-xl mx-auto px-4 sm:px-6 pt-16 pb-32">
+
+        <!-- ===================================================
+             SECTION 1: HERO / COVER SECTION
+             =================================================== -->
+        <section id="hero-section" class="min-h-[90vh] flex flex-col items-center justify-center text-center py-8 relative">
+            
+            <!-- Rotating Subtle Background Mandala -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden -z-10 opacity-20">
+                <svg class="w-[340px] h-[340px] sm:w-[460px] sm:h-[460px] spin-slow text-gold-400" viewBox="0 0 200 200">
+                    <circle cx="100" cy="100" r="95" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4"/>
+                    <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <g stroke="currentColor" stroke-width="1" fill="none">
+                        <ellipse cx="100" cy="100" rx="30" ry="80" transform="rotate(0 100 100)"/>
+                        <ellipse cx="100" cy="100" rx="30" ry="80" transform="rotate(30 100 100)"/>
+                        <ellipse cx="100" cy="100" rx="30" ry="80" transform="rotate(60 100 100)"/>
+                        <ellipse cx="100" cy="100" rx="30" ry="80" transform="rotate(90 100 100)"/>
+                        <ellipse cx="100" cy="100" rx="30" ry="80" transform="rotate(120 100 100)"/>
+                        <ellipse cx="100" cy="100" rx="30" ry="80" transform="rotate(150 100 100)"/>
+                    </g>
+                </svg>
+            </div>
+
+            <!-- Auspicious Header -->
+            <div class="hero-anim space-y-2 mb-4">
+                <p class="text-gold-300 text-sm sm:text-base tracking-widest">॥ श्री गणेशाय नमः ॥</p>
+                <div class="inline-block px-6 py-1.5 rounded-full bg-gradient-to-r from-maroon-950 via-maroon-800 to-maroon-950 border border-gold-400 shadow-lg">
+                    <h2 class="font-yatra text-xl sm:text-2xl gold-text tracking-wide">॥ शुभ विवाह ॥</h2>
+                </div>
+            </div>
+
+            <!-- Couple Names -->
+            <div class="hero-anim my-3 sm:my-5 w-full">
+                <div class="flex items-center justify-center gap-3 sm:gap-6">
+                    <h1 class="font-rozha text-5xl sm:text-7xl gold-text drop-shadow-md">रुद्र</h1>
+                    <span class="w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-marigold-400 to-marigold-600 border-2 border-gold-200 flex items-center justify-center font-yatra text-lg sm:text-xl text-white shadow-lg shrink-0">
+                        संग
+                    </span>
+                    <h1 class="font-rozha text-5xl sm:text-7xl gold-text drop-shadow-md">शांति</h1>
+                </div>
+                <p class="font-cinzel text-xs sm:text-sm tracking-[0.3em] text-gold-200/80 uppercase mt-2">
+                    Rudra <span class="text-marigold-400">&amp;</span> Shanti
+                </p>
+            </div>
+
+            <!-- Traditional Flat Vector Illustration of Indian Bride & Groom -->
+            <div class="hero-anim my-5 relative">
+                <div class="mughal-arch w-64 h-80 sm:w-72 sm:h-96 bg-gradient-to-b from-marigold-500/20 via-maroon-800 to-maroon-950 p-3 relative overflow-hidden mx-auto flex flex-col justify-end items-center">
+                    
+                    <!-- Optional Image Override (Hidden unless URL configured in WEDDING_CONFIG) -->
+                    <img id="custom-couple-img" src="" alt="Rudra and Shanti" class="hidden absolute inset-0 w-full h-full object-cover" onerror="this.classList.add('hidden')">
+
+                    <!-- Custom Flat Vector Indian Bride & Groom Illustration -->
+                    <svg id="vector-couple-svg" class="w-full h-full" viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <radialGradient id="haloGrad" cx="50%" cy="40%" r="50%">
+                                <stop offset="0%" stop-color="#FFE082" stop-opacity="0.45"/>
+                                <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+                            </radialGradient>
+                            <linearGradient id="sherwaniGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#FFF8E1"/>
+                                <stop offset="100%" stop-color="#E6C687"/>
+                            </linearGradient>
+                            <linearGradient id="lehengaGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#B71C1C"/>
+                                <stop offset="100%" stop-color="#63080B"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- Golden Halo Glow Behind Couple -->
+                        <circle cx="150" cy="145" r="115" fill="url(#haloGrad)"/>
+                        
+                        <!-- Hanging Floral Strings Inside Arch -->
+                        <g stroke="#FFA726" stroke-width="3" stroke-dasharray="3 6" opacity="0.65">
+                            <line x1="40" y1="0" x2="40" y2="95"/>
+                            <line x1="75" y1="0" x2="75" y2="65"/>
+                            <line x1="225" y1="0" x2="225" y2="65"/>
+                            <line x1="260" y1="0" x2="260" y2="95"/>
+                        </g>
+
+                        <!-- ================= GROOM (RUDRA - LEFT) ================= -->
+                        <g transform="translate(38, 62)">
+                            <!-- Royal Maroon & Gold Pagdi (Turban) -->
+                            <path d="M35,55 C28,25 58,8 85,18 C108,26 112,48 102,62 Z" fill="#8E0E14" stroke="#D4AF37" stroke-width="2"/>
+                            <path d="M40,48 Q75,25 103,48" fill="none" stroke="#FFD54F" stroke-width="3"/>
+                            <!-- Kalgi (Turban Feather & Gem) -->
+                            <circle cx="52" cy="28" r="5" fill="#FFD54F"/>
+                            <path d="M52,25 C38,5 25,10 32,26" fill="#FFF8E1" opacity="0.9"/>
+                            <!-- Sehra Pearl Strands -->
+                            <g stroke="#FFF9E6" stroke-width="1.5" stroke-dasharray="2 3" opacity="0.85">
+                                <line x1="44" y1="52" x2="44" y2="70"/>
+                                <line x1="52" y1="50" x2="52" y2="66"/>
+                            </g>
+
+                            <!-- Groom Face & Neck -->
+                            <rect x="62" y="96" width="20" height="18" fill="#E0A97D"/>
+                            <path d="M46,56 C46,92 58,104 72,104 C86,104 98,92 98,56 Z" fill="#EBB68B"/>
+                            
+                            <!-- Groom Facial Features (Serene Traditional Flat Style) -->
+                            <!-- Eyebrows -->
+                            <path d="M55,68 Q63,64 68,68" fill="none" stroke="#2D1408" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M77,68 Q82,64 90,68" fill="none" stroke="#2D1408" stroke-width="2" stroke-linecap="round"/>
+                            <!-- Closed Peaceful Eyes -->
+                            <path d="M57,74 Q63,78 68,74" fill="none" stroke="#2D1408" stroke-width="1.8" stroke-linecap="round"/>
+                            <path d="M77,74 Q83,78 88,74" fill="none" stroke="#2D1408" stroke-width="1.8" stroke-linecap="round"/>
+                            <!-- Tilak -->
+                            <path d="M72,58 L70,69 L74,69 Z" fill="#D32F2F"/>
+                            <!-- Royal Mustache & Gentle Smile -->
+                            <path d="M62,88 Q68,85 72,88 Q76,85 82,88" fill="none" stroke="#2D1408" stroke-width="2.2" stroke-linecap="round"/>
+                            <path d="M67,92 Q72,96 77,92" fill="none" stroke="#A94438" stroke-width="1.8" stroke-linecap="round"/>
+
+                            <!-- Groom Sherwani Body -->
+                            <path d="M22,298 L32,126 C34,114 48,108 72,108 C96,108 110,114 112,126 L122,298 Z" fill="url(#sherwaniGrad)" stroke="#D4AF37" stroke-width="2"/>
+                            
+                            <!-- Maroon Velvet Stole (Dupatta) -->
+                            <path d="M34,114 L55,298 L30,298 L24,135 Z" fill="#7C0D12" stroke="#D4AF37" stroke-width="1.5"/>
+                            
+                            <!-- Emerald & Pearl Haar (Necklace) -->
+                            <path d="M52,110 Q72,145 92,110" fill="none" stroke="#1B5E20" stroke-width="3.5" stroke-dasharray="4 3"/>
+                            <path d="M48,112 Q72,158 96,112" fill="none" stroke="#FFD54F" stroke-width="2.5"/>
+                            
+                            <!-- Varmala (Marigold & Rose Garland) -->
+                            <path d="M42,115 Q72,188 102,115" fill="none" stroke="#FF8F00" stroke-width="9" stroke-linecap="round" stroke-dasharray="6 8"/>
+                            <path d="M42,115 Q72,188 102,115" fill="none" stroke="#C62828" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 12"/>
+
+                            <!-- Folded Namaste Hands -->
+                            <path d="M62,190 L72,165 L82,190 Z" fill="#EBB68B" stroke="#C68B59" stroke-width="1.2"/>
+                        </g>
+
+                        <!-- ================= BRIDE (SHANTI - RIGHT) ================= -->
+                        <g transform="translate(136, 82)">
+                            <!-- Bridal Crimson Chunari / Veil -->
+                            <path d="M25,45 C25,5 105,5 105,45 L122,278 L12,278 Z" fill="#8E0E14" stroke="#D4AF37" stroke-width="2"/>
+                            
+                            <!-- Hair Bun & Matha Patti (Gold Headpiece) -->
+                            <circle cx="65" cy="48" r="32" fill="#1F0D07"/>
+                            <path d="M36,44 Q65,58 94,44" fill="none" stroke="#FFD54F" stroke-width="3.5" stroke-dasharray="3 2"/>
+                            <!-- Maang Tikka -->
+                            <circle cx="65" cy="48" r="5.5" fill="#FFD54F" stroke="#B71C1C" stroke-width="1.5"/>
+
+                            <!-- Bride Face & Neck -->
+                            <rect x="57" y="88" width="16" height="16" fill="#E5AE83"/>
+                            <path d="M42,48 C42,82 52,94 65,94 C78,94 88,82 88,48 Z" fill="#F3C198"/>
+
+                            <!-- Bridal Bindi & Eyes -->
+                            <circle cx="65" cy="59" r="3" fill="#B71C1C"/>
+                            <path d="M49,64 Q55,60 60,64" fill="none" stroke="#2D1408" stroke-width="1.8" stroke-linecap="round"/>
+                            <path d="M70,64 Q75,60 81,64" fill="none" stroke="#2D1408" stroke-width="1.8" stroke-linecap="round"/>
+                            <path d="M50,69 Q55,73 60,69" fill="none" stroke="#2D1408" stroke-width="1.8" stroke-linecap="round"/>
+                            <path d="M70,69 Q75,73 80,69" fill="none" stroke="#2D1408" stroke-width="1.8" stroke-linecap="round"/>
+
+                            <!-- Bridal Nath (Gold Nose Ring) -->
+                            <circle cx="56" cy="76" r="6.5" fill="none" stroke="#FFD54F" stroke-width="1.6"/>
+                            <circle cx="50" cy="77" r="1.8" fill="#B71C1C"/>
+                            <!-- Smile -->
+                            <path d="M60,83 Q65,87 70,83" fill="none" stroke="#B71C1C" stroke-width="2" stroke-linecap="round"/>
+
+                            <!-- Jhumka Earrings -->
+                            <circle cx="39" cy="74" r="5" fill="#FFD54F"/>
+                            <circle cx="91" cy="74" r="5" fill="#FFD54F"/>
+
+                            <!-- Bridal Lehenga & Choli -->
+                            <path d="M20,278 L34,110 C38,100 50,98 65,98 C80,98 92,100 96,110 L110,278 Z" fill="url(#lehengaGrad)" stroke="#FFD54F" stroke-width="2"/>
+                            
+                            <!-- Heavy Gold Bridal Choker & Rani Haar -->
+                            <path d="M49,96 Q65,112 81,96" fill="none" stroke="#FFD54F" stroke-width="7"/>
+                            <path d="M44,104 Q65,142 86,104" fill="none" stroke="#FFD54F" stroke-width="3" stroke-dasharray="3 3"/>
+
+                            <!-- Bridal Varmala -->
+                            <path d="M40,108 Q65,172 90,108" fill="none" stroke="#FF8F00" stroke-width="8" stroke-linecap="round" stroke-dasharray="5 7"/>
+                            <path d="M40,108 Q65,172 90,108" fill="none" stroke="#FFF9E6" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 10"/>
+
+                            <!-- Chooda (Red & Gold Bangles) & Mehendi Hands -->
+                            <path d="M56,174 L65,152 L74,174 Z" fill="#F3C198"/>
+                            <rect x="52" y="172" width="26" height="8" rx="4" fill="#B71C1C" stroke="#FFD54F" stroke-width="1.5"/>
+                        </g>
+
+                        <!-- Bottom Marigold Border Base -->
+                        <path d="M0,355 Q150,335 300,355 L300,360 L0,360 Z" fill="#D4AF37"/>
+                    </svg>
+                </div>
+
+                <!-- Decorative Diya Lamps at Base of Arch -->
+                <div class=" -mt-5 flex justify-between w-72 sm:w-80 mx-auto px-4 relative z-10">
+                    <div class="w-10 h-10 rounded-full bg-maroon-900 border-2 border-gold-400 flex items-center justify-center shadow-lg text-marigold-400">
+                        <i class="fa-solid fa-fire-flame-curved animate-bounce"></i>
+                    </div>
+                    <div class="px-5 py-1.5 rounded-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 text-maroon-950 font-bold text-sm sm:text-base shadow-xl border border-white/40">
+                        <i class="fa-regular fa-calendar-check mr-1.5"></i>
+                        <span id="display-wedding-date">8 June 2026</span>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-maroon-900 border-2 border-gold-400 flex items-center justify-center shadow-lg text-marigold-400">
+                        <i class="fa-solid fa-fire-flame-curved animate-bounce"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Down Indicator -->
+            <a href="#invitation-section" class="hero-anim mt-4 inline-flex flex-col items-center text-gold-300/80 hover:text-gold-200 transition">
+                <span class="text-xs uppercase tracking-widest mb-1">नीचे स्क्रॉल करें</span>
+                <i class="fa-solid fa-chevron-down animate-bounce"></i>
+            </a>
+        </section>
+
+        <!-- Ornate Section Divider -->
+        <div class="my-6 flex items-center justify-center gap-3 opacity-80">
+            <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent to-gold-400"></div>
+            <i class="fa-solid fa-spa text-marigold-400 text-lg"></i>
+            <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent to-gold-400"></div>
+        </div>
+
+        <!-- ===================================================
+             SECTION 2: THE INVITATION MESSAGE (मांगलिक परिणयोत्सव)
+             =================================================== -->
+        <section id="invitation-section" class="py-8 scroll-reveal">
+            <div class="royal-card rounded-3xl p-6 sm:p-8 text-center">
+                
+                <!-- Auspicious Sanskrit Shloka -->
+                <p class="text-xs sm:text-sm text-gold-300/90 leading-relaxed mb-4">
+                    “वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ।<br>
+                    निर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा॥”
+                </p>
+
+                <!-- Main Section Heading -->
+                <div class="my-5">
+                    <h2 class="font-yatra text-2xl sm:text-3xl gold-text">॥ मांगलिक परिणयोत्सव ॥</h2>
+                    <p class="text-xs sm:text-sm text-gold-200/80 mt-1">ईश्वर की असीम अनुकम्पा एवं पूर्वजों के आशीर्वाद से</p>
+                </div>
+
+                <!-- Groom's Side Card -->
+                <div class="bg-maroon-950/75 border border-gold-500/40 rounded-2xl p-5 my-4 shadow-inner">
+                    <span class="inline-block px-3 py-0.5 rounded-full bg-gold-500/20 border border-gold-400/40 text-gold-300 text-xs mb-2">
+                        वर (Groom)
+                    </span>
+                    <h3 class="font-rozha text-3xl sm:text-4xl text-gold-300 mb-2">चिरंजीवी रुद्र शाहदेव</h3>
+                    <p class="text-sm sm:text-base text-gold-100/95 leading-relaxed">
+                        सुपुत्र <span class="text-marigold-400 font-semibold">स्वर्गीय लाल केदार नाथ शाहदेव</span> एवं <span class="text-marigold-400 font-semibold">शारदा कुंवर</span>
+                    </p>
+                </div>
+
+                <!-- Auspicious "Sang" Badge -->
+                <div class="my-3 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-b from-marigold-400 to-marigold-600 border-2 border-gold-200 flex items-center justify-center shadow-lg">
+                        <i class="fa-solid fa-heart text-white text-lg"></i>
+                    </div>
+                </div>
+
+                <!-- Bride's Side Card -->
+                <div class="bg-maroon-950/75 border border-gold-500/40 rounded-2xl p-5 my-4 shadow-inner">
+                    <span class="inline-block px-3 py-0.5 rounded-full bg-gold-500/20 border border-gold-400/40 text-gold-300 text-xs mb-2">
+                        वधू (Bride)
+                    </span>
+                    <h3 class="font-rozha text-3xl sm:text-4xl text-gold-300 mb-2">आयुष्मती शांति सिंह</h3>
+                    <p class="text-sm sm:text-base text-gold-100/95 leading-relaxed">
+                        सुपुत्री <span class="text-marigold-400 font-semibold">श्री राजकुमार सिंह</span> एवं <span class="text-marigold-400 font-semibold">श्रीमती यशोदा देवी</span>
+                    </p>
+                </div>
+
+                <p class="mt-5 text-sm sm:text-base text-gold-200 leading-relaxed">
+                    के पावन परिणयोत्सव के शुभ अवसर पर आप सपरिवार सादर आमंत्रित हैं। कृपया पधार कर वर-वधू को अपना स्नेहिल आशीर्वाद प्रदान करें।
+                </p>
+            </div>
+        </section>
+
+        <!-- Ornate Section Divider -->
+        <div class="my-6 flex items-center justify-center gap-3 opacity-80">
+            <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent to-gold-400"></div>
+            <i class="fa-solid fa-om text-marigold-400 text-lg"></i>
+            <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent to-gold-400"></div>
+        </div>
+
+        <!-- ===================================================
+             SECTION 3: EVENT SCHEDULE (TIMELINE FORMAT)
+             =================================================== -->
+        <section id="schedule-section" class="py-8 scroll-reveal">
+            <div class="text-center mb-8">
+                <span class="text-xs uppercase tracking-[0.25em] text-marigold-400 font-cinzel">Auspicious Moments</span>
+                <h2 class="font-yatra text-3xl sm:text-4xl gold-text mt-1">॥ मांगलिक कार्यक्रम ॥</h2>
+                <p class="text-gold-200/80 text-sm mt-1">शुभ दिनांक: <span class="wedding-date-inline font-semibold text-gold-300">8 June 2026</span></p>
+            </div>
+
+            <!-- Vertical Timeline Container -->
+            <div class="relative pl-6 sm:pl-8 border-l-2 border-dashed border-gold-400/60 ml-4 sm:ml-6 space-y-6">
+
+                <!-- Event 1: Ghurchari -->
+                <div class="timeline-item relative royal-card rounded-2xl p-5">
+                    <div class="absolute -left-[41px] sm:-left-[49px] top-6 w-9 h-9 rounded-full bg-gradient-to-br from-marigold-400 to-marigold-600 border-2 border-gold-200 flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-horse text-white text-sm"></i>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                        <h3 class="font-rozha text-2xl text-gold-300">घुड़चढ़ी (Ghurchari)</h3>
+                        <span class="px-3 py-1 rounded-full bg-maroon-950 border border-gold-400/50 text-marigold-400 text-xs sm:text-sm font-bold">
+                            <i class="fa-regular fa-clock mr-1"></i> 6:30 PM
+                        </span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gold-100/80">दिनांक: 8 June • पारंपरिक रीति-रिवाजों के साथ घुड़चढ़ी रस्म</p>
+                </div>
+
+                <!-- Event 2: Departure of Barat -->
+                <div class="timeline-item relative royal-card rounded-2xl p-5">
+                    <div class="absolute -left-[41px] sm:-left-[49px] top-6 w-9 h-9 rounded-full bg-gradient-to-br from-marigold-400 to-marigold-600 border-2 border-gold-200 flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-drum text-white text-sm"></i>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+                        <h3 class="font-rozha text-2xl text-gold-300">बारात प्रस्थान (Barat)</h3>
+                        <span class="px-3 py-1 rounded-full bg-maroon-950 border border-gold-400/50 text-marigold-400 text-xs sm:text-sm font-bold">
+                            <i class="fa-regular fa-clock mr-1"></i> 7:30 PM
+                        </span>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gold-100/80">दिनांक: 8 June • निज निवास से गाजे-बाजे के साथ बारात प्रस्थान</p>
+                </div>
+
+                <!-- Event 3: Wedding Ceremony (Vivah) & Venue -->
+                <div class="timeline-item relative royal-card rounded-2xl p-5 border-2 border-gold-400">
+                    <div class="absolute -left-[41px] sm:-left-[49px] top-6 w-9 h-9 rounded-full bg-gradient-to-br from-gold-300 to-gold-600 border-2 border-white flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-fire text-maroon-950 text-sm"></i>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h3 class="font-rozha text-2xl sm:text-3xl gold-text">शुभ विवाह (Vivah)</h3>
+                        <span class="px-3 py-1 rounded-full bg-gold-500 text-maroon-950 text-xs sm:text-sm font-bold">
+                            <i class="fa-regular fa-clock mr-1"></i> 9:00 PM • 8 June
+                        </span>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gold-500/30 flex items-start gap-2.5 text-gold-200">
+                        <i class="fa-solid fa-gopuram text-marigold-400 mt-1 text-base"></i>
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-gold-400 block">विवाह स्थल (Venue):</span>
+                            <p class="text-base sm:text-lg font-bold text-white">नगर मंदिर चंदवा (Nagar Mandir, Chandwa)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event 4: Preeti Bhoj (Reception) -->
+                <div class="timeline-item relative royal-card rounded-2xl p-5">
+                    <div class="absolute -left-[41px] sm:-left-[49px] top-6 w-9 h-9 rounded-full bg-gradient-to-br from-marigold-400 to-marigold-600 border-2 border-gold-200 flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-utensils text-white text-sm"></i>
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h3 class="font-rozha text-2xl text-gold-300">प्रीतिभोज (Reception)</h3>
+                        <span class="px-3 py-1 rounded-full bg-maroon-950 border border-gold-400/50 text-marigold-400 text-xs sm:text-sm font-bold">
+                            <i class="fa-regular fa-calendar mr-1"></i> 10 June
+                        </span>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-gold-500/30 flex items-start gap-2.5 text-gold-200">
+                        <i class="fa-solid fa-location-dot text-marigold-400 mt-1 text-base"></i>
+                        <div>
+                            <span class="text-xs uppercase tracking-wider text-gold-400 block">प्रीतिभोज स्थल:</span>
+                            <p class="text-base sm:text-lg font-bold text-white">फुलसू, बरियातू (Phulsu, Bariatu)</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Ornate Section Divider -->
+        <div class="my-6 flex items-center justify-center gap-3 opacity-80">
+            <div class="h-[1px] flex-1 bg-gradient-to-r from-transparent to-gold-400"></div>
+            <i class="fa-solid fa-hands-praying text-marigold-400 text-lg"></i>
+            <div class="h-[1px] flex-1 bg-gradient-to-l from-transparent to-gold-400"></div>
+        </div>
+
+        <!-- ===================================================
+             SECTION 4: FAMILY & WELL-WISHERS SECTION
+             =================================================== -->
+        <section id="family-section" class="py-8 scroll-reveal space-y-6">
+            <div class="text-center">
+                <span class="text-xs uppercase tracking-[0.25em] text-marigold-400 font-cinzel">With Warm Regards</span>
+                <h2 class="font-yatra text-3xl sm:text-4xl gold-text mt-1">॥ स्नेहीजन एवं परिवार ॥</h2>
+            </div>
+
+            <!-- Aakanshi (Hosts) & Corrected Address Card -->
+            <div class="royal-card rounded-3xl p-6 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-gold-500/20 border border-gold-400 text-gold-300 text-sm mb-3">
+                    <i class="fa-solid fa-user-tie"></i> आकांक्षी (Host)
+                </div>
+                <h3 class="font-rozha text-2xl sm:text-3xl text-white mb-2">लाल संजय नाथ शाहदेव</h3>
+                
+                <!-- Updated Address as Requested -->
+                <div class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-maroon-950/90 border border-gold-500/40 text-gold-200 text-sm sm:text-base my-2">
+                    <i class="fa-solid fa-house-chimney text-marigold-400"></i>
+                    <span>पुष्प विहार, सेक्टर-6 (Pushp Vihar Sec-6)</span>
+                </div>
+
+                <!-- Click-to-Call Phone Numbers -->
+                <div class="mt-4 flex flex-wrap items-center justify-center gap-3">
+                    <a href="tel:+918210050314" class="px-4 py-2 rounded-full bg-gradient-to-r from-maroon-800 to-maroon-900 border border-gold-400/70 text-gold-200 hover:border-gold-300 text-xs sm:text-sm flex items-center gap-2 shadow-md transition active:scale-95">
+                        <i class="fa-solid fa-phone-volume text-marigold-400"></i> +91 8210050314
+                    </a>
+                    <a href="tel:+918102737175" class="px-4 py-2 rounded-full bg-gradient-to-r from-maroon-800 to-maroon-900 border border-gold-400/70 text-gold-200 hover:border-gold-300 text-xs sm:text-sm flex items-center gap-2 shadow-md transition active:scale-95">
+                        <i class="fa-solid fa-phone-volume text-marigold-400"></i> +91 8102737175
+                    </a>
+                </div>
+            </div>
+
+            <!-- Darshanabhilashi (Well-Wishers) Card -->
+            <div class="royal-card rounded-3xl p-6 text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-gold-500/20 border border-gold-400 text-gold-300 text-sm mb-4">
+                    <i class="fa-solid fa-users"></i> दर्शनाभिलाषी (Well-Wishers)
+                </div>
+
+                <!-- Senior Family Members -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm sm:text-base text-gold-100 font-medium mb-5">
+                    <div class="bg-maroon-950/60 border border-gold-500/25 rounded-xl py-2 px-3">लाल विश्वनाथ नाथ शाहदेव</div>
+                    <div class="bg-maroon-950/60 border border-gold-500/25 rounded-xl py-2 px-3">लाल नवीन नाथ शाहदेव</div>
+                    <div class="bg-maroon-950/60 border border-gold-500/25 rounded-xl py-2 px-3">लाल जयकाली नाथ शाहदेव</div>
+                    <div class="bg-maroon-950/60 border border-gold-500/25 rounded-xl py-2 px-3">लाल ध्रुव नाथ शाहदेव</div>
+                    <div class="bg-maroon-950/60 border border-gold-500/25 rounded-xl py-2 px-3 sm:col-span-2">लाल आशीष नाथ शाहदेव</div>
+                </div>
+
+                <!-- Brothers / Young Family Members -->
+                <div class="flex flex-wrap justify-center gap-2 mb-5">
+                    <span class="px-3.5 py-1 rounded-full bg-maroon-950 border border-gold-400/40 text-gold-200 text-sm">विनीत</span>
+                    <span class="px-3.5 py-1 rounded-full bg-maroon-950 border border-gold-400/40 text-gold-200 text-sm">वैभव</span>
+                    <span class="px-3.5 py-1 rounded-full bg-maroon-950 border border-gold-400/40 text-gold-200 text-sm">विश्वास</span>
+                    <span class="px-3.5 py-1 rounded-full bg-maroon-950 border border-gold-400/40 text-gold-200 text-sm">आयुष</span>
+                    <span class="px-3.5 py-1 rounded-full bg-maroon-950 border border-gold-400/40 text-gold-200 text-sm">पीयूष</span>
+                    <span class="px-3.5 py-1 rounded-full bg-maroon-950 border border-gold-400/40 text-gold-200 text-sm">मंगलम</span>
+                    <span class="px-3.5 py-1 rounded-full bg-maroon-950 border border-gold-400/40 text-gold-200 text-sm">दिव्यांशु</span>
+                </div>
+
+                <!-- Special Addition: Little Well-Wishers / Bal Manuhar -->
+                <div class="pt-4 border-t border-gold-500/30">
+                    <p class="text-xs text-marigold-400 uppercase tracking-widest mb-2.5">
+                        <i class="fa-solid fa-sparkles mr-1"></i> नन्हे दर्शनाभिलाषी एवं स्नेही
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-marigold-600/40 to-maroon-900 border border-gold-300/60 text-gold-100 text-sm font-medium">गव्या (Gavya)</span>
+                        <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-marigold-600/40 to-maroon-900 border border-gold-300/60 text-gold-100 text-sm font-medium">निवांश (Nivansh)</span>
+                        <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-marigold-600/40 to-maroon-900 border border-gold-300/60 text-gold-100 text-sm font-medium">रेहांश (Rehansh)</span>
+                        <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-marigold-600/40 to-maroon-900 border border-gold-300/60 text-gold-100 text-sm font-medium">चार्वी (Charvi)</span>
+                        <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-marigold-600/40 to-maroon-900 border border-gold-300/60 text-gold-100 text-sm font-medium">ध्रुवी (Dhruvi)</span>
+                        <span class="px-3.5 py-1 rounded-full bg-gradient-to-r from-marigold-600/40 to-maroon-900 border border-gold-300/60 text-gold-100 text-sm font-medium">नित्विक (Nithvik)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================
+             SECTION 5: THE QUOTE / FOOTER & SHARE ACTIONS
+             =================================================== -->
+        <footer class="py-8 scroll-reveal text-center">
+            <div class="royal-card rounded-3xl p-7 sm:p-9 relative overflow-hidden">
+                <!-- Decorative Quote Icon -->
+                <i class="fa-solid fa-quote-left text-3xl text-gold-500/30 mb-2"></i>
+                
+                <!-- Exact Hindi Poem -->
+                <blockquote class="font-yatra text-xl sm:text-2xl text-gold-200 leading-relaxed my-2">
+                    “प्यार में बंध रहे है, एक प्यारे रिश्ते का बंधन है,<br>
+                    पूरे परिवार सहित आपका हार्दिक अभिनन्दन है!”
+                </blockquote>
+                <p class="text-xs text-gold-400/75 italic mb-5">
+                    (घार में बंध रहे है, एक घारे रिश्ते का बंधन है, पूरे परिवार सहित आपका हार्दिक अभिनन्दन है!)
+                </p>
+
+                <div class="h-[1px] w-28 bg-gold-500/50 mx-auto my-4"></div>
+
+                <!-- Sign-off -->
+                <p class="text-xs uppercase tracking-widest text-marigold-400 mb-1">सादर अभिवादन</p>
+                <h3 class="font-rozha text-3xl sm:text-4xl gold-text">॥ शाहदेव परिवार ॥</h3>
+
+                <!-- Quick Action Share & Calendar Buttons -->
+                <div class="mt-7 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button id="whatsapp-share-btn" class="w-full sm:w-auto px-6 py-3 rounded-full bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-600 hover:to-emerald-500 text-white font-medium text-sm flex items-center justify-center gap-2 shadow-lg border border-emerald-400/40 transition active:scale-95 cursor-pointer">
+                        <i class="fa-brands fa-whatsapp text-lg"></i> WhatsApp पर साझा करें
+                    </button>
+
+                    <a id="google-calendar-btn" href="#" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto px-6 py-3 rounded-full bg-gradient-to-r from-marigold-600 to-marigold-500 hover:from-marigold-500 hover:to-marigold-400 text-white font-medium text-sm flex items-center justify-center gap-2 shadow-lg border border-gold-300/50 transition active:scale-95">
+                        <i class="fa-regular fa-calendar-plus text-base"></i> Add to Calendar
+                    </a>
+                </div>
+            </div>
+
+            <p class="mt-8 text-xs text-gold-400/50 font-cinzel tracking-widest">
+                ॥ शुभम् भवतु • रुद्र संग शांति ॥
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- =======================================================
+         FLOATING INTERACTIVE ACTION DOCK (BOTTOM)
+         ======================================================= -->
+    <div class="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4 pointer-events-none">
+        <div class="pointer-events-auto flex items-center gap-2 sm:gap-3 bg-maroon-950/90 backdrop-blur-md border-2 border-gold-400/80 rounded-full p-2 shadow-2xl">
+            
+            <!-- Play / Pause Traditional Music Button -->
+            <button id="music-toggle-btn" class="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-maroon-800 to-maroon-900 border border-gold-400/60 text-gold-200 text-xs sm:text-sm font-medium hover:border-gold-300 transition active:scale-95 cursor-pointer" title="Toggle Traditional Music">
+                <i id="music-icon" class="fa-solid fa-volume-xmark text-marigold-400"></i>
+                <span id="music-label">शहनाई धुन (Music)</span>
+            </button>
+
+            <!-- Floating Add to Calendar Shortcut -->
+            <a id="floating-calendar-btn" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-gold-500 to-gold-400 text-maroon-950 text-xs sm:text-sm font-bold shadow-md hover:brightness-110 transition active:scale-95">
+                <i class="fa-regular fa-calendar-check"></i>
+                <span>Save Date</span>
+            </a>
+
+            <!-- Floating WhatsApp Share Shortcut -->
+            <button id="floating-whatsapp-btn" class="w-9 h-9 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center justify-center shadow-md border border-emerald-300/50 transition active:scale-95 cursor-pointer" title="Share on WhatsApp">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- =======================================================
+         JAVASCRIPT: GSAP ANIMATIONS, PETALS & SYNTHESIZED AUDIO
+         ======================================================= -->
+    <script>
+        window.onload = function () {
+            /* ---------------------------------------------------
+               1. APPLY DYNAMIC PLACEHOLDER CONFIGURATION
+               --------------------------------------------------- */
+            const fullDateStr = `${WEDDING_CONFIG.weddingDay} ${WEDDING_CONFIG.weddingMonth} ${WEDDING_CONFIG.weddingYear}`;
+            document.getElementById('display-wedding-date').textContent = fullDateStr;
+            document.querySelectorAll('.wedding-date-inline').forEach(el => {
+                el.textContent = fullDateStr;
+            });
+
+            // Optional Couple Photo replacement if user provides URL
+            if (WEDDING_CONFIG.couplePhotoUrl && WEDDING_CONFIG.couplePhotoUrl.trim() !== "") {
+                const customImg = document.getElementById('custom-couple-img');
+                const vectorSvg = document.getElementById('vector-couple-svg');
+                customImg.src = WEDDING_CONFIG.couplePhotoUrl;
+                customImg.classList.remove('hidden');
+                vectorSvg.classList.add('hidden');
+            }
+
+            // Build Google Calendar Link
+            const calendarTitle = encodeURIComponent("॥ शुभ विवाह ॥ रुद्र संग शांति (Rudra & Shanti Wedding)");
+            const calendarDetails = encodeURIComponent(
+                "ईश्वर की असीम अनुकम्पा से रुद्र शाहदेव संग शांति सिंह के पावन परिणयोत्सव में आप सपरिवार सादर आमंत्रित हैं।\n\n" +
+                "• घुड़चढ़ी: 6:30 PM\n• बारात प्रस्थान: 7:30 PM\n• शुभ विवाह: 9:00 PM (नगर मंदिर चंदवा)\n• प्रीतिभोज: 10 June (फुलसू, बरियातू)\n\n" +
+                "आकांक्षी: लाल संजय नाथ शाहदेव, पुष्प विहार, सेक्टर-6 (+91 8210050314)"
+            );
+            const calendarLocation = encodeURIComponent("Nagar Mandir, Chandwa, Jharkhand");
+            const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calendarTitle}&dates=${WEDDING_CONFIG.calendarStartUTC}/${WEDDING_CONFIG.calendarEndUTC}&details=${calendarDetails}&location=${calendarLocation}`;
+
+            document.getElementById('google-calendar-btn').href = googleCalUrl;
+            document.getElementById('floating-calendar-btn').href = googleCalUrl;
+
+            // WhatsApp Share Logic
+            function shareOnWhatsApp() {
+                const shareMessage =
+                    `🙏 *॥ श्री गणेशाय नमः ॥* 🙏\n` +
+                    `✨ *॥ मांगलिक परिणयोत्सव आमंत्रण ॥* ✨\n\n` +
+                    `*चिरंजीवी रुद्र शाहदेव* संग *आयुष्मती शांति सिंह*\n\n` +
+                    `📅 *शुभ विवाह:* ${fullDateStr} (रात्रि 9:00 बजे)\n` +
+                    `🏛️ *विवाह स्थल:* नगर मंदिर चंदवा\n` +
+                    `🍽️ *प्रीतिभोज:* 10 June (फुलसू, बरियातू)\n` +
+                    `🏠 *निवास:* पुष्प विहार, सेक्टर-6 (Pushp Vihar Sec-6)\n\n` +
+                    `पूरे परिवार सहित आपका हार्दिक अभिनन्दन है!\n` +
+                    `— *शाहदेव परिवार*\n\n` +
+                    `👇 आमंत्रण पत्र यहाँ देखें:\n` +
+                    window.location.href;
+
+                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareMessage)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+
+            document.getElementById('whatsapp-share-btn').addEventListener('click', shareOnWhatsApp);
+            document.getElementById('floating-whatsapp-btn').addEventListener('click', shareOnWhatsApp);
+
+            /* ---------------------------------------------------
+               2. TRADITIONAL INDIAN RAGA SYNTHESIZER (TONE.JS)
+               --------------------------------------------------- */
+            let isMusicPlaying = false;
+            let audioInitialized = false;
+            let melodyLoop = null;
+            let tanpuraLoop = null;
+            let shehnaiSynth = null;
+            let tanpuraSynth = null;
+
+            async function toggleTraditionalMusic(forcePlay = false) {
+                try {
+                    if (!audioInitialized) {
+                        await Tone.start();
+
+                        // Create Reverb for Temple Ambience
+                        const reverb = new Tone.Reverb({ decay: 4, wet: 0.45 }).toDestination();
+
+                        // Warm Tanpura Drone Synth (Sa - Pa)
+                        tanpuraSynth = new Tone.PolySynth(Tone.Synth, {
+                            oscillator: { type: "triangle" },
+                            envelope: { attack: 1.5, decay: 2, sustain: 0.6, release: 3 }
+                        }).connect(reverb);
+                        tanpuraSynth.volume.value = -20;
+
+                        // Expressive Shehnai / Sitar Festive Melody Synth
+                        shehnaiSynth = new Tone.MonoSynth({
+                            oscillator: { type: "fmtriangle", harmonicity: 2, modulationType: "sine" },
+                            envelope: { attack: 0.15, decay: 0.4, sustain: 0.5, release: 1.2 },
+                            portamento: 0.06
+                        }).connect(reverb);
+                        shehnaiSynth.volume.value = -13;
+
+                        // Auspicious Raga Yaman / Bhupali Pentatonic Notes
+                        const ragaNotes = ["C4", "D4", "E4", "G4", "A4", "C5", "A4", "G4", "E4", "G4", "D4", "C4"];
+                        let noteIdx = 0;
+
+                        melodyLoop = new Tone.Loop((time) => {
+                            const note = ragaNotes[noteIdx % ragaNotes.length];
+                            shehnaiSynth.triggerAttackRelease(note, "4n", time);
+                            noteIdx++;
+                        }, "2n");
+
+                        tanpuraLoop = new Tone.Loop((time) => {
+                            tanpuraSynth.triggerAttackRelease(["C3", "G3"], "1m", time);
+                        }, "1m");
+
+                        Tone.Transport.bpm.value = 82;
+                        audioInitialized = true;
+                    }
+
+                    if (forcePlay && isMusicPlaying) return;
+
+                    if (!isMusicPlaying) {
+                        Tone.Transport.start();
+                        melodyLoop.start(0);
+                        tanpuraLoop.start(0);
+                        isMusicPlaying = true;
+                        updateMusicUI(true);
+                    } else {
+                        Tone.Transport.pause();
+                        isMusicPlaying = false;
+                        updateMusicUI(false);
+                    }
+                } catch (err) {
+                    console.warn("Audio playback requires user interaction:", err);
+                }
+            }
+
+            function updateMusicUI(playing) {
+                const icon = document.getElementById('music-icon');
+                const label = document.getElementById('music-label');
+                if (playing) {
+                    icon.className = "fa-solid fa-music text-marigold-400 animate-spin";
+                    label.textContent = "संगीत चालू (Playing)";
+                } else {
+                    icon.className = "fa-solid fa-volume-xmark text-gold-400";
+                    label.textContent = "शहनाई धुन (Music)";
+                }
+            }
+
+            document.getElementById('music-toggle-btn').addEventListener('click', () => {
+                toggleTraditionalMusic();
+            });
+
+            /* ---------------------------------------------------
+               3. GSAP HAVELI DOOR OPENING & SCROLL ANIMATIONS
+               --------------------------------------------------- */
+            gsap.registerPlugin(ScrollTrigger);
+
+            const doorOverlay = document.getElementById('door-overlay');
+            const openBtn = document.getElementById('open-invitation-btn');
+
+            openBtn.addEventListener('click', () => {
+                // Start auspicious instrumental music on seal tap
+                toggleTraditionalMusic(true);
+
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        doorOverlay.style.display = 'none';
+                        ScrollTrigger.refresh();
+                    }
+                });
+
+                // Fade out seal button
+                tl.to('#door-seal-wrapper', {
+                    scale: 0.7,
+                     autoAlpha: 0,
+                    duration: 0.45,
+                    ease: "back.in(1.7)"
+                })
+                // Swing open 3D left and right Haveli doors
+                .to('#door-left', {
+                    rotationY: -105,
+                    xPercent: -25,
+                    duration: 1.5,
+                    ease: "power3.inOut"
+                }, "-=0.1")
+                .to('#door-right', {
+                    rotationY: 105,
+                    xPercent: 25,
+                    duration: 1.5,
+                    ease: "power3.inOut"
+                }, "<")
+                .to(doorOverlay, {
+                    autoAlpha: 0,
+                    duration: 0.4
+                }, "-=0.4")
+                // Animate Hero Elements Entering
+                .from('.hero-anim', {
+                    y: 40,
+                    autoAlpha: 0,
+                    duration: 0.9,
+                    stagger: 0.18,
+                    ease: "power3.out"
+                }, "-=0.8");
+            });
+
+            // Scroll-Triggered Fade-ins & Slide-ups for Sections
+            gsap.utils.toArray('.scroll-reveal').forEach((section) => {
+                gsap.from(section, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 45,
+                    opacity: 0,
+                    duration: 0.9,
+                    ease: "power2.out"
+                });
+            });
+
+            // Staggered Timeline Items Reveal
+            gsap.utils.toArray('.timeline-item').forEach((item, index) => {
+                gsap.from(item, {
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 88%",
+                        toggleActions: "play none none reverse"
+                    },
+                    x: 35,
+                    opacity: 0,
+                    duration: 0.7,
+                    delay: index * 0.08,
+                    ease: "power2.out"
+                });
+            });
+
+            /* ---------------------------------------------------
+               4. FALLING MARIGOLD & ROSE PETALS CANVAS
+               --------------------------------------------------- */
+            const canvas = document.getElementById('petals-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            const petals = [];
+            const PETAL_COUNT = 26; // Balanced for smooth mobile performance
+
+            // Colors: Marigold Orange, Golden Yellow, Crimson Rose
+            const petalColors = [
+                'rgba(255, 143, 0, 0.75)',
+                'rgba(255, 193, 7, 0.75)',
+                'rgba(183, 28, 28, 0.7)',
+                'rgba(212, 175, 55, 0.65)'
+            ];
+
+            function resizeCanvas() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            class Petal {
+                constructor() {
+                    this.reset(true);
+                }
+
+                reset(initial = false) {
+                    this.x = Math.random() * width;
+                    this.y = initial ? Math.random() * height : -20;
+                    this.size = 6 + Math.random() * 8;
+                    this.speedY = 0.7 + Math.random() * 1.2;
+                    this.speedX = -0.5 + Math.random() * 1;
+                    this.angle = Math.random() * Math.PI * 2;
+                    this.spin = -0.02 + Math.random() * 0.04;
+                    this.swayAmplitude = 0.5 + Math.random() * 1.2;
+                    this.color = petalColors[Math.floor(Math.random() * petalColors.length)];
+                }
+
+                update() {
+                    this.y += this.speedY;
+                    this.x += this.speedX + Math.sin(this.angle) * this.swayAmplitude;
+                    this.angle += this.spin;
+
+                    if (this.y > height + 20 || this.x < -30 || this.x > width + 30) {
+                        this.reset(false);
+                    }
+                }
+
+                draw() {
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle);
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    // Organic Marigold/Rose Tear-Drop Petal Shape
+                    ctx.moveTo(0, -this.size);
+                    ctx.bezierCurveTo(this.size, -this.size * 0.5, this.size, this.size * 0.8, 0, this.size);
+                    ctx.bezierCurveTo(-this.size, this.size * 0.8, -this.size, -this.size * 0.5, 0, -this.size);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            for (let i = 0; i < PETAL_COUNT; i++) {
+                petals.push(new Petal());
+            }
+
+            function animatePetals() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < petals.length; i++) {
+                    petals[i].update();
+                    petals[i].draw();
+                }
+                requestAnimationFrame(animatePetals);
+            }
+
+            animatePetals();
+        };
+    </script>
+</body>
+</html>
