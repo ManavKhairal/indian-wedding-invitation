@@ -772,10 +772,25 @@
     <div class="fixed bottom-4 inset-x-0 z-40 flex justify-center px-4 pointer-events-none">
         <div class="pointer-events-auto flex items-center gap-2 sm:gap-3 bg-maroon-950/90 backdrop-blur-md border-2 border-gold-400/80 rounded-full p-2 shadow-2xl">
             
+            <!-- Audio Player and Custom Track elements -->
+            <audio id="wedding-audio-track" loop preload="auto"></audio>
+            <input type="file" id="custom-audio-file" accept="audio/*" class="hidden">
+
             <!-- Play / Pause Traditional Music Button -->
-            <button id="music-toggle-btn" class="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-maroon-800 to-maroon-900 border border-gold-400/60 text-gold-200 text-xs sm:text-sm font-medium hover:border-gold-300 transition active:scale-95 cursor-pointer" title="Toggle Traditional Music">
+            <button id="music-toggle-btn" class="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-gradient-to-r from-maroon-800 to-maroon-900 border border-gold-400/60 text-gold-200 text-xs sm:text-sm font-medium hover:border-gold-300 transition active:scale-95 cursor-pointer shadow-lg" title="Toggle Traditional Music">
                 <i id="music-icon" class="fa-solid fa-volume-xmark text-marigold-400"></i>
                 <span id="music-label">शहनाई धुन (Music)</span>
+                <span id="music-bars" class="hidden inline-flex items-end gap-0.5 h-3 ml-1">
+                    <span class="w-1 bg-marigold-400 animate-bounce h-2 rounded-full"></span>
+                    <span class="w-1 bg-marigold-400 animate-bounce h-3 rounded-full" style="animation-delay: 0.15s"></span>
+                    <span class="w-1 bg-marigold-400 animate-bounce h-1.5 rounded-full" style="animation-delay: 0.3s"></span>
+                </span>
+            </button>
+
+            <!-- Choose Custom Wedding MP3 Song Shortcut -->
+            <button id="choose-audio-btn" class="flex items-center gap-1.5 px-3 py-2 rounded-full bg-maroon-900/90 border border-gold-400/40 text-gold-300 hover:text-white hover:border-gold-300 text-xs font-medium cursor-pointer transition active:scale-95" title="Select your own MP3 wedding song">
+                <i class="fa-solid fa-music text-gold-400"></i>
+                <span class="hidden sm:inline">Add Song</span>
             </button>
 
             <!-- Floating Add to Calendar Shortcut -->
@@ -850,7 +865,7 @@
             document.getElementById('floating-whatsapp-btn').addEventListener('click', shareOnWhatsApp);
 
             /* ---------------------------------------------------
-               2. TRADITIONAL INDIAN RAGA SYNTHESIZER (TONE.JS)
+               2. TRADITIONAL INDIAN RAGA AUDIO ENGINE (TONE.JS + WEB AUDIO + CUSTOM MP3)
                --------------------------------------------------- */
             let isMusicPlaying = false;
             let audioInitialized = false;
@@ -858,81 +873,239 @@
             let tanpuraLoop = null;
             let shehnaiSynth = null;
             let tanpuraSynth = null;
+            let nativeAudioCtx = null;
+            let nativeOscInterval = null;
+
+            const weddingAudioTrack = document.getElementById('wedding-audio-track');
+            const customAudioFile = document.getElementById('custom-audio-file');
+            const chooseAudioBtn = document.getElementById('choose-audio-btn');
+
+            // Handle custom user-selected MP3 song
+            if (chooseAudioBtn && customAudioFile) {
+                chooseAudioBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    customAudioFile.click();
+                });
+
+                customAudioFile.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        // Pause synth if playing
+                        if (window.Tone && audioInitialized) {
+                            try { Tone.Transport.pause(); } catch(e){}
+                        }
+                        if (weddingAudioTrack) {
+                            weddingAudioTrack.src = URL.createObjectURL(file);
+                            weddingAudioTrack.play().then(() => {
+                                isMusicPlaying = true;
+                                updateMusicUI(true, file.name.substring(0, 16) + '...');
+                            }).catch(err => {
+                                console.warn("MP3 play error:", err);
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Reliable Web Audio API fallback if Tone.js is blocked or offline
+            function playNativeWebAudio() {
+                try {
+                    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                    if (!nativeAudioCtx) {
+                        nativeAudioCtx = new AudioCtx();
+                    }
+                    if (nativeAudioCtx.state === 'suspended') {
+                        nativeAudioCtx.resume();
+                    }
+
+                    // Tanpura Drone (Sa & Pa)
+                    const oscSa = nativeAudioCtx.createOscillator();
+                    const oscPa = nativeAudioCtx.createOscillator();
+                    const droneGain = nativeAudioCtx.createGain();
+                    
+                    oscSa.type = 'sawtooth';
+                    oscSa.frequency.setValueAtTime(130.81, nativeAudioCtx.currentTime); // C3
+                    oscPa.type = 'triangle';
+                    oscPa.frequency.setValueAtTime(196.00, nativeAudioCtx.currentTime); // G3
+                    
+                    droneGain.gain.setValueAtTime(0.08, nativeAudioCtx.currentTime);
+                    
+                    oscSa.connect(droneGain);
+                    oscPa.connect(droneGain);
+                    droneGain.connect(nativeAudioCtx.destination);
+                    
+                    oscSa.start();
+                    oscPa.start();
+
+                    // Auspicious Raag Yaman Phrasing
+                    const ragaFreqs = [261.63, 329.63, 369.99, 392.00, 493.88, 523.25, 493.88, 392.00, 329.63, 261.63];
+                    let step = 0;
+                    nativeOscInterval = setInterval(() => {
+                        if (!isMusicPlaying || !nativeAudioCtx) return;
+                        const osc = nativeAudioCtx.createOscillator();
+                        const gain = nativeAudioCtx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(ragaFreqs[step % ragaFreqs.length], nativeAudioCtx.currentTime);
+                        
+                        gain.gain.setValueAtTime(0, nativeAudioCtx.currentTime);
+                        gain.gain.linearRampToValueAtTime(0.18, nativeAudioCtx.currentTime + 0.05);
+                        gain.gain.exponentialRampToValueAtTime(0.001, nativeAudioCtx.currentTime + 0.9);
+                        
+                        osc.connect(gain);
+                        gain.connect(nativeAudioCtx.destination);
+                        osc.start();
+                        osc.stop(nativeAudioCtx.currentTime + 1.0);
+                        step++;
+                    }, 1000);
+                } catch(e) {
+                    console.warn("Native Web Audio fallback error:", e);
+                }
+            }
+
+            async function initToneAudio() {
+                if (audioInitialized) return;
+
+                if (window.Tone) {
+                    await Tone.start();
+
+                    // Instant synchronous Freeverb and Delay (100% reliable, no async worker buffer mute)
+                    const reverb = new Tone.Freeverb({ roomSize: 0.75, dampening: 2800 }).toDestination();
+                    const delay = new Tone.FeedbackDelay("8n", 0.22).connect(reverb);
+
+                    // Authentic Tanpura Drone Synth (Root Sa - Pa)
+                    tanpuraSynth = new Tone.PolySynth(Tone.Synth, {
+                        oscillator: { type: "triangle" },
+                        envelope: { attack: 0.8, decay: 1.5, sustain: 0.7, release: 2.0 }
+                    }).connect(reverb);
+                    tanpuraSynth.volume.value = -6; // Audible, rich ambient drone
+
+                    // Expressive Shehnai Festive Melody Synth
+                    shehnaiSynth = new Tone.MonoSynth({
+                        oscillator: { type: "sawtooth" },
+                        envelope: { attack: 0.08, decay: 0.25, sustain: 0.7, release: 0.6 },
+                        portamento: 0.06
+                    }).connect(delay);
+                    shehnaiSynth.volume.value = 0; // Loud and clear traditional lead
+
+                    // Auspicious Raag Yaman Wedding Shehnai Phrasing (Sa Re Ga Ma Dha Ni Sa)
+                    const ragaMelody = [
+                        { note: "C4", dur: "4n" },
+                        { note: "E4", dur: "4n" },
+                        { note: "F#4", dur: "4n" },
+                        { note: "G4", dur: "2n" },
+                        { note: "B4", dur: "4n" },
+                        { note: "C5", dur: "2n." },
+                        { note: "B4", dur: "4n" },
+                        { note: "A4", dur: "4n" },
+                        { note: "G4", dur: "2n" },
+                        { note: "E4", dur: "4n" },
+                        { note: "F#4", dur: "4n" },
+                        { note: "D4", dur: "4n" },
+                        { note: "C4", dur: "1n" }
+                    ];
+
+                    let noteIdx = 0;
+                    Tone.Transport.scheduleRepeat((time) => {
+                        const item = ragaMelody[noteIdx % ragaMelody.length];
+                        shehnaiSynth.triggerAttackRelease(item.note, item.dur, time);
+                        noteIdx++;
+                    }, "2n");
+
+                    Tone.Transport.scheduleRepeat((time) => {
+                        tanpuraSynth.triggerAttackRelease(["C3", "G3", "C4"], "2m", time);
+                    }, "2m");
+
+                    Tone.Transport.bpm.value = 86;
+                }
+                audioInitialized = true;
+            }
 
             async function toggleTraditionalMusic(forcePlay = false) {
                 try {
+                    // Check if custom MP3 file is loaded
+                    if (weddingAudioTrack && weddingAudioTrack.src && weddingAudioTrack.src !== window.location.href && !weddingAudioTrack.src.endsWith('.html')) {
+                        if (!isMusicPlaying || forcePlay) {
+                            await weddingAudioTrack.play();
+                            isMusicPlaying = true;
+                            updateMusicUI(true);
+                        } else {
+                            weddingAudioTrack.pause();
+                            isMusicPlaying = false;
+                            updateMusicUI(false);
+                        }
+                        return;
+                    }
+
+                    // Otherwise use synthesized Shehnai
                     if (!audioInitialized) {
-                        await Tone.start();
-
-                        // Create Reverb for Temple Ambience
-                        const reverb = new Tone.Reverb({ decay: 4, wet: 0.45 }).toDestination();
-
-                        // Warm Tanpura Drone Synth (Sa - Pa)
-                        tanpuraSynth = new Tone.PolySynth(Tone.Synth, {
-                            oscillator: { type: "triangle" },
-                            envelope: { attack: 1.5, decay: 2, sustain: 0.6, release: 3 }
-                        }).connect(reverb);
-                        tanpuraSynth.volume.value = -20;
-
-                        // Expressive Shehnai / Sitar Festive Melody Synth
-                        shehnaiSynth = new Tone.MonoSynth({
-                            oscillator: { type: "fmtriangle", harmonicity: 2, modulationType: "sine" },
-                            envelope: { attack: 0.15, decay: 0.4, sustain: 0.5, release: 1.2 },
-                            portamento: 0.06
-                        }).connect(reverb);
-                        shehnaiSynth.volume.value = -13;
-
-                        // Auspicious Raga Yaman / Bhupali Pentatonic Notes
-                        const ragaNotes = ["C4", "D4", "E4", "G4", "A4", "C5", "A4", "G4", "E4", "G4", "D4", "C4"];
-                        let noteIdx = 0;
-
-                        melodyLoop = new Tone.Loop((time) => {
-                            const note = ragaNotes[noteIdx % ragaNotes.length];
-                            shehnaiSynth.triggerAttackRelease(note, "4n", time);
-                            noteIdx++;
-                        }, "2n");
-
-                        tanpuraLoop = new Tone.Loop((time) => {
-                            tanpuraSynth.triggerAttackRelease(["C3", "G3"], "1m", time);
-                        }, "1m");
-
-                        Tone.Transport.bpm.value = 82;
-                        audioInitialized = true;
+                        await initToneAudio();
                     }
 
                     if (forcePlay && isMusicPlaying) return;
 
                     if (!isMusicPlaying) {
-                        Tone.Transport.start();
-                        melodyLoop.start(0);
-                        tanpuraLoop.start(0);
+                        if (window.Tone && audioInitialized) {
+                            await Tone.start();
+                            Tone.Transport.start();
+                        } else {
+                            playNativeWebAudio();
+                        }
                         isMusicPlaying = true;
                         updateMusicUI(true);
                     } else {
-                        Tone.Transport.pause();
+                        if (window.Tone && audioInitialized) {
+                            Tone.Transport.pause();
+                        }
+                        if (nativeAudioCtx) {
+                            nativeAudioCtx.suspend();
+                        }
                         isMusicPlaying = false;
                         updateMusicUI(false);
                     }
                 } catch (err) {
-                    console.warn("Audio playback requires user interaction:", err);
+                    console.warn("Audio interaction notice:", err);
+                    // Fallback to native Web Audio if Tone.js throws
+                    if (!isMusicPlaying) {
+                        playNativeWebAudio();
+                        isMusicPlaying = true;
+                        updateMusicUI(true);
+                    }
                 }
             }
 
-            function updateMusicUI(playing) {
+            function updateMusicUI(playing, customName = null) {
                 const icon = document.getElementById('music-icon');
                 const label = document.getElementById('music-label');
+                const bars = document.getElementById('music-bars');
                 if (playing) {
-                    icon.className = "fa-solid fa-music text-marigold-400 animate-spin";
-                    label.textContent = "संगीत चालू (Playing)";
+                    if (icon) icon.className = "fa-solid fa-music text-marigold-400 animate-spin";
+                    if (label) label.textContent = customName ? customName : "संगीत चालू (Playing)";
+                    if (bars) bars.classList.remove('hidden');
                 } else {
-                    icon.className = "fa-solid fa-volume-xmark text-gold-400";
-                    label.textContent = "शहनाई धुन (Music)";
+                    if (icon) icon.className = "fa-solid fa-volume-xmark text-gold-400";
+                    if (label) label.textContent = "शहनाई धुन (Music)";
+                    if (bars) bars.classList.add('hidden');
                 }
             }
 
-            document.getElementById('music-toggle-btn').addEventListener('click', () => {
+            // Toggle button event
+            document.getElementById('music-toggle-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
                 toggleTraditionalMusic();
             });
+
+            // Auto-unlock audio on ANY first user interaction anywhere on the screen (overcoming browser autoplay policy)
+            let userHasClicked = false;
+            function autoUnlockOnFirstInteraction() {
+                if (!userHasClicked) {
+                    userHasClicked = true;
+                    if (!isMusicPlaying) {
+                        toggleTraditionalMusic(true);
+                    }
+                }
+            }
+            window.addEventListener('click', autoUnlockOnFirstInteraction, { once: true });
+            window.addEventListener('touchstart', autoUnlockOnFirstInteraction, { once: true });
 
             /* ---------------------------------------------------
                3. GSAP HAVELI DOOR OPENING & SCROLL ANIMATIONS
